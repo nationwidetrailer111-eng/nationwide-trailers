@@ -230,8 +230,9 @@
       display: none;
       position: fixed; top: 0; left: 0; right: 0; z-index: 90;
       height: 56px;
-      background: var(--black);
+      background: var(--white);
       border-bottom: 3px solid var(--yellow);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
       align-items: center;
       justify-content: space-between;
       padding: 0 16px;
@@ -239,14 +240,14 @@
     .mobile-topbar-logo img { height: 32px; width: auto; }
     .mobile-menu-btn {
       width: 44px; height: 44px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.04);
+      border: 1px solid rgba(0,0,0,0.1);
       border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; flex-direction: column; gap: 5px;
     }
     .mobile-menu-btn span {
-      width: 20px; height: 2px; background: var(--white);
+      width: 20px; height: 2px; background: var(--black);
       border-radius: 2px; transition: 0.3s;
     }
     .mobile-menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }

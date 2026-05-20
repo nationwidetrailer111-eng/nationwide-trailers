@@ -52,14 +52,16 @@
     /* Sidebar */
     .sidebar {
       position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-w);
-      background: var(--black); color: var(--white); display: flex; flex-direction: column; z-index: 100;
+      background: var(--white); color: var(--black); display: flex; flex-direction: column; z-index: 100;
+      border-right: 1px solid var(--gray-light);
+      box-shadow: 2px 0 12px rgba(0,0,0,0.06);
     }
     .sidebar-logo {
       padding: 24px 22px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid var(--gray-light);
     }
-    .sidebar-logo-main { font-size: 1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); }
-    .sidebar-logo-sub { font-size: 0.62rem; color: rgba(255,255,255,0.4); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
+    .sidebar-logo-main { font-size: 1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; color: var(--black); }
+    .sidebar-logo-sub { font-size: 0.62rem; color: var(--gray-mid); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px; }
     .sidebar-logo-badge {
       display: inline-block; background: var(--yellow); color: var(--black);
       font-size: 0.6rem; font-weight: 800; padding: 2px 8px; border-radius: 2px;
@@ -68,16 +70,16 @@
     .sidebar-nav { flex: 1; padding: 20px 12px; }
     .nav-section-label {
       font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px;
-      color: rgba(255,255,255,0.3); padding: 8px 10px 6px; margin-top: 8px;
+      color: var(--gray-mid); padding: 8px 10px 6px; margin-top: 8px;
     }
     .nav-item {
       display: flex; align-items: center; gap: 12px;
       padding: 11px 12px; border-radius: 6px; cursor: pointer;
-      color: rgba(255,255,255,0.65); font-size: 0.88rem; font-weight: 500;
+      color: var(--gray); font-size: 0.88rem; font-weight: 500;
       transition: 0.2s; margin-bottom: 2px;
     }
-    .nav-item:hover { background: rgba(255,255,255,0.07); color: var(--white); }
-    .nav-item.active { background: rgba(255,205,17,0.12); color: var(--yellow); border-left: 3px solid var(--yellow); }
+    .nav-item:hover { background: rgba(0,0,0,0.04); color: var(--black); }
+    .nav-item.active { background: rgba(255,205,17,0.12); color: var(--yellow-dark); border-left: 3px solid var(--yellow); }
     .nav-item svg { width: 17px; height: 17px; flex-shrink: 0; }
     .nav-badge {
       margin-left: auto; background: var(--red); color: white;
@@ -85,11 +87,11 @@
     }
     .sidebar-footer {
       padding: 16px 12px;
-      border-top: 1px solid rgba(255,255,255,0.08);
+      border-top: 1px solid var(--gray-light);
     }
     .logout-btn {
-      width: 100%; padding: 10px; background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3);
-      color: #fca5a5; border-radius: 5px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
+      width: 100%; padding: 10px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25);
+      color: var(--red); border-radius: 5px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
       font-family: var(--font); transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
     }
     .logout-btn:hover { background: var(--red); color: white; border-color: var(--red); }

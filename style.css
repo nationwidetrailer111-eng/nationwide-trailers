@@ -142,9 +142,9 @@ ul { list-style: none; }
 }
 .logo { display: flex; flex-direction: column; line-height: 1.15; }
 .navbar .logo {
-  width: 310px;
-  height: 54px;
-  flex: 0 1 310px;
+  width: 400px;
+  height: 64px;
+  flex: 0 1 400px;
   overflow: hidden;
 }
 .logo-img {
@@ -971,9 +971,9 @@ ul { list-style: none; }
   /* Navbar */
   .navbar-inner { height: 64px; }
   .navbar .logo {
-    width: 230px;
-    height: 46px;
-    flex-basis: 230px;
+    width: 300px;
+    height: 56px;
+    flex-basis: 300px;
   }
   .logo-tagline { display: none; }
   .nav-links {
@@ -1089,9 +1089,9 @@ ul { list-style: none; }
   .cta-banner { padding: 32px 0; }
 
   .navbar .logo {
-    width: 190px;
-    height: 40px;
-    flex-basis: 190px;
+    width: 250px;
+    height: 48px;
+    flex-basis: 250px;
   }
   .logo-sub { font-size: 0.5rem; letter-spacing: 1.5px; }
 
@@ -1135,9 +1135,9 @@ ul { list-style: none; }
   .navbar { border-bottom-width: 2px; }
   .navbar-inner { height: 66px; }
   .navbar .logo {
-    width: min(58vw, 230px);
-    height: 44px;
-    flex-basis: min(58vw, 230px);
+    width: min(62vw, 280px);
+    height: 50px;
+    flex-basis: min(62vw, 280px);
   }
   .nav-toggle {
     width: 44px;
@@ -1364,9 +1364,9 @@ ul { list-style: none; }
 @media (max-width: 420px) {
   .container { padding: 0 15px; }
   .navbar .logo {
-    width: min(55vw, 198px);
-    height: 40px;
-    flex-basis: min(55vw, 198px);
+    width: min(60vw, 240px);
+    height: 46px;
+    flex-basis: min(60vw, 240px);
   }
   .hero {
     padding-top: calc(88px + 56vw);

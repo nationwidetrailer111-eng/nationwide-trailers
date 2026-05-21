@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.nationwidesemitrailer.com/sitemap.xml

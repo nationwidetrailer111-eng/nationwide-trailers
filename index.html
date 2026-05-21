@@ -106,58 +106,9 @@
       <div class="divider"></div>
       <p class="section-subtitle">Heavy-duty semi trailers for every application — nationwide Australia-wide service.</p>
     </div>
-    <div class="product-grid">
-
-      <div class="product-card">
-        <div class="product-img-wrap">
-          <img src="images/flat-top.jpg" alt="Flat Top Trailer">
-        </div>
-        <div class="product-card-body">
-          <h3>Flat Top Trailers</h3>
-          <a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img-wrap">
-          <img src="images/tautliner.jpg" alt="Tautliner Trailer">
-        </div>
-        <div class="product-card-body">
-          <h3>Tautliner Trailers</h3>
-          <a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img-wrap">
-          <img src="images/drop-deck.jpg" alt="Drop Deck Trailer">
-        </div>
-        <div class="product-card-body">
-          <h3>Drop Deck Trailers</h3>
-          <a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img-wrap">
-          <img src="images/low-loader.jpg" alt="Low Loader Trailer">
-        </div>
-        <div class="product-card-body">
-          <h3>Low Loader Trailers</h3>
-          <a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img-wrap">
-          <img src="images/refrigerated.jpg" alt="Refrigerated Trailer">
-        </div>
-        <div class="product-card-body">
-          <h3>Refrigerated Trailers</h3>
-          <a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a>
-        </div>
-      </div>
-
+    <div class="product-grid" id="homeFleetGrid">
+      <!-- Loaded dynamically from Supabase -->
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:#777;">Loading fleet...</div>
     </div>
     <div class="text-center" style="margin-top: 40px;">
       <a href="fleet.html" class="btn btn-outline">View Full Fleet</a>
@@ -284,6 +235,38 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
+<script>
+// Load fleet preview from Supabase (first 5 items)
+(async () => {
+  try {
+    const { data: fleet, error } = await db
+      .from('fleet')
+      .select('*')
+      .eq('active', true)
+      .order('display_order', { ascending: true })
+      .limit(5);
+
+    const grid = document.getElementById('homeFleetGrid');
+
+    if (error || !fleet || fleet.length === 0) {
+      grid.innerHTML = '';
+      return;
+    }
+
+    grid.innerHTML = fleet.map(item => `
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="${item.image_url || 'images/hero-trailer.jpg'}" alt="${item.name}">
+        </div>
+        <div class="product-card-body">
+          <h3>${item.name}</h3>
+          <a href="contact.html" class="btn btn-primary btn-sm">Get a Quote</a>
+        </div>
+      </div>
+    `).join('');
+  } catch(e) { console.error('Fleet load error:', e); }
+})();
+</script>
 <script>
 (async () => {
   try {

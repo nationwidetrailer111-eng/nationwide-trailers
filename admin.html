@@ -227,6 +227,49 @@
     .empty-state { text-align: center; padding: 48px 20px; color: var(--gray-mid); }
     .empty-state svg { width: 40px; height: 40px; margin: 0 auto 12px; opacity: 0.3; }
 
+    /* ── FLEET MANAGEMENT ── */
+    .fleet-mgmt-grid { display: grid; grid-template-columns: 1fr 380px; gap: 24px; align-items: start; }
+    .fleet-list-wrap { background: var(--white); border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden; }
+    .fleet-add-wrap { background: var(--white); border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 24px; border-top: 4px solid var(--yellow); }
+    .fleet-add-wrap h3 { font-size: 1rem; font-weight: 800; margin-bottom: 20px; }
+    .fleet-item {
+      padding: 14px 20px; border-bottom: 1px solid var(--gray-light);
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    .fleet-item:last-child { border-bottom: none; }
+    .fleet-item-img {
+      width: 80px; height: 56px; border-radius: 6px; overflow: hidden; flex-shrink: 0;
+      background: var(--off-white); display: flex; align-items: center; justify-content: center;
+    }
+    .fleet-item-img img { width: 100%; height: 100%; object-fit: cover; }
+    .fleet-item-info { flex: 1; min-width: 150px; }
+    .fleet-item-info strong { font-size: 0.92rem; color: var(--black); display: block; margin-bottom: 2px; }
+    .fleet-item-info span { font-size: 0.78rem; color: var(--gray-mid); }
+    .fleet-order-badge {
+      font-size: 0.65rem; background: var(--off-white); color: var(--gray-mid);
+      padding: 2px 8px; border-radius: 10px; font-weight: 700; border: 1px solid var(--gray-light);
+    }
+    .fleet-inactive { opacity: 0.5; }
+    .fleet-inactive .fleet-item-info strong::after {
+      content: ' (Hidden)'; font-size: 0.7rem; color: var(--red); font-weight: 600;
+    }
+    .fleet-move-btns { display: flex; flex-direction: column; gap: 2px; }
+    .fleet-move-btns button {
+      background: var(--off-white); border: 1px solid var(--gray-light); border-radius: 4px;
+      cursor: pointer; padding: 3px 6px; font-size: 0.7rem; color: var(--gray); transition: 0.15s;
+    }
+    .fleet-move-btns button:hover { background: var(--yellow); color: var(--black); border-color: var(--yellow); }
+    .img-upload-zone {
+      border: 2px dashed var(--gray-light); border-radius: 6px; padding: 20px; text-align: center;
+      cursor: pointer; transition: 0.2s; background: var(--off-white); position: relative;
+    }
+    .img-upload-zone:hover { border-color: var(--yellow-dark); background: rgba(255,205,17,0.05); }
+    .img-upload-zone img { max-height: 120px; margin: 0 auto 8px; border-radius: 4px; }
+    .img-upload-zone p { font-size: 0.8rem; color: var(--gray-mid); margin: 0; }
+    .img-upload-zone input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+
     /* ── MOBILE TOGGLE BUTTON ── */
     .mobile-topbar {
       display: none;
@@ -291,6 +334,9 @@
 
       /* Location grid */
       .loc-mgmt-grid { grid-template-columns: 1fr; }
+      .fleet-mgmt-grid { grid-template-columns: 1fr; }
+      .fleet-item { padding: 14px 16px; }
+      .fleet-add-wrap { padding: 20px 16px; }
 
       /* Settings grid */
       #section-settings > div:last-child,
@@ -395,6 +441,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         Manage Locations
       </div>
+      <div class="nav-item" onclick="showSection('fleet')" id="nav-fleet">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Manage Fleet
+      </div>
       <div class="nav-item" onclick="showSection('settings')" id="nav-settings">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
         Site Settings
@@ -407,6 +457,10 @@
       <a href="locations.html" class="nav-item" target="_blank">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         View Locations Page
+      </a>
+      <a href="fleet.html" class="nav-item" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        View Fleet Page
       </a>
     </nav>
     <div class="sidebar-footer">
@@ -582,6 +636,62 @@
       </div>
     </div>
 
+    <!-- ── FLEET SECTION ── -->
+    <div class="page-section" id="section-fleet">
+      <div class="topbar">
+        <div>
+          <h1>Manage Fleet</h1>
+          <p>Add, edit, reorder, or remove trailers shown on the public Fleet page and homepage.</p>
+        </div>
+        <a href="fleet.html" target="_blank" class="action-btn btn-mark" style="padding:9px 16px;">View Live Page ↗</a>
+      </div>
+
+      <div class="fleet-mgmt-grid">
+        <!-- Fleet list -->
+        <div class="fleet-list-wrap">
+          <div class="table-header"><h3>Fleet Items</h3></div>
+          <div id="fleetListBody"></div>
+        </div>
+
+        <!-- Add / Edit fleet form -->
+        <div class="fleet-add-wrap">
+          <h3 id="fleetFormTitle">+ Add New Trailer</h3>
+          <input type="hidden" id="fleetEditId" value="">
+          <div class="form-group">
+            <label>Trailer Name *</label>
+            <input type="text" id="fleetName" placeholder="e.g. Flat Top Trailers">
+          </div>
+          <div class="form-group">
+            <label>Short Description</label>
+            <input type="text" id="fleetDesc" placeholder="e.g. General freight, steel & machinery">
+          </div>
+          <div class="form-group">
+            <label>Trailer Image</label>
+            <div class="img-upload-zone" id="fleetImgZone">
+              <div id="fleetImgPreview"></div>
+              <p id="fleetImgLabel">Click or drag to upload an image</p>
+              <input type="file" id="fleetImgFile" accept="image/*" onchange="previewFleetImg(this)">
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Display Order</label>
+              <input type="number" id="fleetOrder" placeholder="1" min="0" value="0">
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select id="fleetActive">
+                <option value="true">Active (Visible)</option>
+                <option value="false">Hidden</option>
+              </select>
+            </div>
+          </div>
+          <button class="submit-loc-btn" id="fleetSubmitBtn" onclick="saveFleetItem()">Add Trailer</button>
+          <button class="submit-loc-btn" id="fleetCancelBtn" onclick="cancelEditFleet()" style="display:none; background:#eee; color:#555; margin-top:8px;">Cancel Edit</button>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /main -->
 </div><!-- /adminApp -->
 
@@ -678,6 +788,7 @@
     if (name === 'locations') renderLocList();
     if (name === 'quotes') renderQuotes();
     if (name === 'settings') loadSettings();
+    if (name === 'fleet') renderFleetList();
   }
 
   // ── INIT ──
@@ -988,6 +1099,218 @@
     if (error) { toast('Error saving settings.', false); console.error(error); return; }
 
     toast(type === 'phone' ? 'Phone numbers saved!' : 'Email saved!');
+  }
+
+  // ── FLEET MANAGEMENT ──
+  let allFleet = [];
+  let fleetImgFile = null; // holds the File object for upload
+
+  async function renderFleetList() {
+    const { data, error } = await db
+      .from('fleet')
+      .select('*')
+      .order('display_order', { ascending: true });
+
+    if (error) { console.error('Error loading fleet:', error); return; }
+    allFleet = data || [];
+
+    const body = document.getElementById('fleetListBody');
+    const editSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+
+    if (!data || data.length === 0) {
+      body.innerHTML = `<div class="empty-state"><p style="font-size:0.85rem;">No fleet items yet. Add your first trailer.</p></div>`;
+      return;
+    }
+
+    body.innerHTML = data.map((item, idx) => `
+      <div class="fleet-item ${item.active ? '' : 'fleet-inactive'}">
+        <div class="fleet-move-btns">
+          <button onclick="moveFleet('${item.id}','up')" title="Move up" ${idx === 0 ? 'disabled style="opacity:0.3;cursor:default;"' : ''}>▲</button>
+          <button onclick="moveFleet('${item.id}','down')" title="Move down" ${idx === data.length - 1 ? 'disabled style="opacity:0.3;cursor:default;"' : ''}>▼</button>
+        </div>
+        <div class="fleet-item-img">
+          ${item.image_url ? `<img src="${escHtml(item.image_url)}" alt="${escHtml(item.name)}">` : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;opacity:0.3;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`}
+        </div>
+        <div class="fleet-item-info">
+          <strong>${escHtml(item.name)}</strong>
+          <span>${escHtml(item.description || '—')}</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+          <span class="fleet-order-badge">#${item.display_order}</span>
+          <button class="action-btn btn-mark" onclick="editFleet('${item.id}')" style="display:flex;align-items:center;gap:4px;">${editSvg} Edit</button>
+          <button class="action-btn btn-del" onclick="deleteFleet('${item.id}')">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function previewFleetImg(input) {
+    const file = input.files[0];
+    if (!file) return;
+    fleetImgFile = file;
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('fleetImgPreview').innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+      document.getElementById('fleetImgLabel').textContent = file.name;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  async function uploadFleetImage(file) {
+    const ext = file.name.split('.').pop().toLowerCase();
+    const fileName = `fleet-${Date.now()}.${ext}`;
+    const { data, error } = await db.storage
+      .from('fleet-images')
+      .upload(fileName, file, { cacheControl: '3600', upsert: false });
+
+    if (error) { console.error('Upload error:', error); return null; }
+
+    const { data: urlData } = db.storage.from('fleet-images').getPublicUrl(fileName);
+    return urlData.publicUrl;
+  }
+
+  async function saveFleetItem() {
+    const editId = document.getElementById('fleetEditId').value;
+    const name = document.getElementById('fleetName').value.trim();
+    const description = document.getElementById('fleetDesc').value.trim();
+    const display_order = parseInt(document.getElementById('fleetOrder').value) || 0;
+    const active = document.getElementById('fleetActive').value === 'true';
+
+    if (!name) {
+      toast('Please enter a trailer name.', false);
+      return;
+    }
+
+    // Disable button while saving
+    const btn = document.getElementById('fleetSubmitBtn');
+    const origText = btn.textContent;
+    btn.textContent = 'Saving...';
+    btn.disabled = true;
+
+    let image_url = '';
+
+    // If we're editing, keep existing image unless a new one is uploaded
+    if (editId) {
+      const existing = allFleet.find(f => f.id === editId);
+      image_url = existing ? existing.image_url : '';
+    }
+
+    // Upload new image if selected
+    if (fleetImgFile) {
+      const url = await uploadFleetImage(fleetImgFile);
+      if (url) {
+        image_url = url;
+      } else {
+        toast('Image upload failed. Try again.', false);
+        btn.textContent = origText;
+        btn.disabled = false;
+        return;
+      }
+    }
+
+    const item = { name, description, image_url, display_order, active };
+
+    if (editId) {
+      const { error } = await db.from('fleet').update(item).eq('id', editId);
+      if (error) { toast('Error updating fleet item.', false); console.error(error); btn.textContent = origText; btn.disabled = false; return; }
+      toast('Fleet item updated!');
+    } else {
+      // Auto-set order to end if not specified
+      if (display_order === 0 && allFleet.length > 0) {
+        item.display_order = Math.max(...allFleet.map(f => f.display_order)) + 1;
+      }
+      const { error } = await db.from('fleet').insert([item]);
+      if (error) { toast('Error adding fleet item.', false); console.error(error); btn.textContent = origText; btn.disabled = false; return; }
+      toast('Fleet item added!');
+    }
+
+    btn.textContent = origText;
+    btn.disabled = false;
+    cancelEditFleet();
+    await renderFleetList();
+  }
+
+  function editFleet(id) {
+    const item = allFleet.find(f => f.id === id);
+    if (!item) return;
+
+    document.getElementById('fleetEditId').value = item.id;
+    document.getElementById('fleetName').value = item.name || '';
+    document.getElementById('fleetDesc').value = item.description || '';
+    document.getElementById('fleetOrder').value = item.display_order || 0;
+    document.getElementById('fleetActive').value = item.active ? 'true' : 'false';
+
+    // Show current image in preview
+    if (item.image_url) {
+      document.getElementById('fleetImgPreview').innerHTML = `<img src="${escHtml(item.image_url)}" alt="Current">`;
+      document.getElementById('fleetImgLabel').textContent = 'Click to replace image';
+    } else {
+      document.getElementById('fleetImgPreview').innerHTML = '';
+      document.getElementById('fleetImgLabel').textContent = 'Click or drag to upload an image';
+    }
+    fleetImgFile = null;
+    document.getElementById('fleetImgFile').value = '';
+
+    document.getElementById('fleetFormTitle').textContent = '✏ Edit Trailer';
+    document.getElementById('fleetSubmitBtn').textContent = 'Save Changes';
+    document.getElementById('fleetCancelBtn').style.display = 'block';
+
+    document.getElementById('fleetFormTitle').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function cancelEditFleet() {
+    document.getElementById('fleetEditId').value = '';
+    document.getElementById('fleetName').value = '';
+    document.getElementById('fleetDesc').value = '';
+    document.getElementById('fleetOrder').value = '0';
+    document.getElementById('fleetActive').value = 'true';
+    document.getElementById('fleetImgPreview').innerHTML = '';
+    document.getElementById('fleetImgLabel').textContent = 'Click or drag to upload an image';
+    document.getElementById('fleetImgFile').value = '';
+    fleetImgFile = null;
+
+    document.getElementById('fleetFormTitle').textContent = '+ Add New Trailer';
+    document.getElementById('fleetSubmitBtn').textContent = 'Add Trailer';
+    document.getElementById('fleetCancelBtn').style.display = 'none';
+  }
+
+  async function deleteFleet(id) {
+    if (!confirm('Remove this trailer from the fleet?')) return;
+
+    // Delete associated image from storage if it's a Supabase URL
+    const item = allFleet.find(f => f.id === id);
+    if (item && item.image_url && item.image_url.includes('fleet-images')) {
+      const path = item.image_url.split('/fleet-images/')[1];
+      if (path) {
+        await db.storage.from('fleet-images').remove([path]);
+      }
+    }
+
+    const { error } = await db.from('fleet').delete().eq('id', id);
+    if (error) { toast('Error removing fleet item.', false); console.error(error); return; }
+
+    if (document.getElementById('fleetEditId').value === id) cancelEditFleet();
+    await renderFleetList();
+    toast('Fleet item removed.');
+  }
+
+  async function moveFleet(id, direction) {
+    const idx = allFleet.findIndex(f => f.id === id);
+    if (idx === -1) return;
+    const swapIdx = direction === 'up' ? idx - 1 : idx + 1;
+    if (swapIdx < 0 || swapIdx >= allFleet.length) return;
+
+    const currentOrder = allFleet[idx].display_order;
+    const swapOrder = allFleet[swapIdx].display_order;
+
+    // Swap the display_order values
+    await Promise.all([
+      db.from('fleet').update({ display_order: swapOrder }).eq('id', allFleet[idx].id),
+      db.from('fleet').update({ display_order: currentOrder }).eq('id', allFleet[swapIdx].id),
+    ]);
+
+    await renderFleetList();
+    toast('Order updated.');
   }
 </script>
 </body>

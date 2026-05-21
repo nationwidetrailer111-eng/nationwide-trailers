@@ -70,96 +70,9 @@
       <p class="section-subtitle">All trailers available on short, medium, or long-term hire. Contact us for availability and pricing.</p>
     </div>
 
-    <div class="trailer-grid">
-
-      <div class="trailer-card">
-        <div class="trailer-img-wrap">
-          <img src="images/flat-top.jpg" alt="Flat Top Trailer">
-        </div>
-        <div class="trailer-card-body">
-          <h3>Flat Top Trailers</h3>
-          <p>General freight, steel &amp; machinery</p>
-          <a href="contact.html" class="btn btn-primary trailer-btn">Hire Now</a>
-        </div>
-      </div>
-
-      <div class="trailer-card">
-        <div class="trailer-img-wrap">
-          <img src="images/tautliner.jpg" alt="Tautliner Curtain-Side Trailer">
-        </div>
-        <div class="trailer-card-body">
-          <h3>Tautliner Trailers</h3>
-          <p>Palletised goods &amp; distribution</p>
-          <a href="contact.html" class="btn btn-primary trailer-btn">Hire Now</a>
-        </div>
-      </div>
-
-      <div class="trailer-card">
-        <div class="trailer-img-wrap">
-          <img src="images/drop-deck.jpg" alt="Drop Deck Trailer">
-        </div>
-        <div class="trailer-card-body">
-          <h3>Drop Deck Trailers</h3>
-          <p>Oversized &amp; tall industrial loads</p>
-          <a href="contact.html" class="btn btn-primary trailer-btn">Hire Now</a>
-        </div>
-      </div>
-
-      <div class="trailer-card">
-        <div class="trailer-img-wrap">
-          <img src="images/low-loader.jpg" alt="Low Loader Trailer">
-        </div>
-        <div class="trailer-card-body">
-          <h3>Low Loader Trailers</h3>
-          <p>Mining equipment &amp; earthmoving</p>
-          <a href="contact.html" class="btn btn-primary trailer-btn">Hire Now</a>
-        </div>
-      </div>
-
-      <div class="trailer-card">
-        <div class="trailer-img-wrap">
-          <img src="images/extendable.jpg" alt="Extendable Trailer">
-        </div>
-        <div class="trailer-card-body">
-          <h3>Extendable Trailers</h3>
-          <p>Long loads — steel, timber &amp; piping</p>
-          <a href="contact.html" class="btn btn-primary trailer-btn">Hire Now</a>
-        </div>
-      </div>
-
-      <div class="trailer-card">
-        <div class="trailer-img-wrap">
-          <img src="images/skeleton.jpg" alt="Skeletal Trailer">
-        </div>
-        <div class="trailer-card-body">
-          <h3>Skeletal (Skel) Trailers</h3>
-          <p>20ft &amp; 40ft container transport</p>
-          <a href="contact.html" class="btn btn-primary trailer-btn">Hire Now</a>
-        </div>
-      </div>
-
-      <div class="trailer-card">
-        <div class="trailer-img-wrap">
-          <img src="images/dolly.jpg" alt="Dolly Trailer">
-        </div>
-        <div class="trailer-card-body">
-          <h3>Dolly</h3>
-          <p>B-double &amp; road train configurations</p>
-          <a href="contact.html" class="btn btn-primary trailer-btn">Hire Now</a>
-        </div>
-      </div>
-
-      <div class="trailer-card">
-        <div class="trailer-img-wrap">
-          <img src="images/refrigerated.jpg" alt="Refrigerated Trailer">
-        </div>
-        <div class="trailer-card-body">
-          <h3>Refrigerated Trailers</h3>
-          <p>Cold chain &amp; temperature-controlled</p>
-          <a href="contact.html" class="btn btn-primary trailer-btn">Hire Now</a>
-        </div>
-      </div>
-
+    <div class="trailer-grid" id="fleetGrid">
+      <!-- Loaded dynamically from Supabase -->
+      <div style="grid-column:1/-1;text-align:center;padding:40px;color:#777;">Loading fleet...</div>
     </div>
   </div>
 </section>
@@ -241,6 +154,38 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
+<script>
+// Load fleet from Supabase
+(async () => {
+  try {
+    const { data: fleet, error } = await db
+      .from('fleet')
+      .select('*')
+      .eq('active', true)
+      .order('display_order', { ascending: true });
+
+    const grid = document.getElementById('fleetGrid');
+
+    if (error || !fleet || fleet.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#777;">No trailers available at the moment.</div>';
+      return;
+    }
+
+    grid.innerHTML = fleet.map(item => `
+      <div class="trailer-card">
+        <div class="trailer-img-wrap">
+          <img src="${item.image_url || 'images/hero-trailer.jpg'}" alt="${item.name}">
+        </div>
+        <div class="trailer-card-body">
+          <h3>${item.name}</h3>
+          <p>${item.description || ''}</p>
+          <a href="contact.html" class="btn btn-primary trailer-btn">Hire Now</a>
+        </div>
+      </div>
+    `).join('');
+  } catch(e) { console.error('Fleet load error:', e); }
+})();
+</script>
 <script>
 (async () => {
   try {

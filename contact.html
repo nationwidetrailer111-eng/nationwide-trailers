@@ -243,6 +243,8 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init('YRpG8RDX3hQgr0iuG');</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
 <script>
@@ -280,6 +282,23 @@
       submitBtn.disabled = false;
       submitBtn.textContent = 'Submit Quote Request';
       return;
+    }
+
+    // Send email notification via EmailJS
+    try {
+      await emailjs.send('service_dsq1uma', 'template_3apl4kf', {
+        full_name: data.full_name,
+        company: data.company || '—',
+        phone: data.phone,
+        email: data.email,
+        trailer_type: data.trailer_type || '—',
+        hire_duration: data.hire_duration || '—',
+        start_date: data.start_date || '—',
+        delivery_location: data.delivery_location || '—',
+        message: data.message || '—',
+      });
+    } catch (emailErr) {
+      console.error('Email notification error:', emailErr);
     }
 
     form.style.display = 'none';
